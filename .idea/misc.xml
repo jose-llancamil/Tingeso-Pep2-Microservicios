@@ -7,6 +7,10 @@
         <option value="$PROJECT_DIR$/config-server/pom.xml" />
         <option value="$PROJECT_DIR$/eureka-server/pom.xml" />
         <option value="$PROJECT_DIR$/gateway-server/pom.xml" />
+        <option value="$PROJECT_DIR$/ms-vehicles/pom.xml" />
+        <option value="$PROJECT_DIR$/ms-repairs/pom.xml" />
+        <option value="$PROJECT_DIR$/ms-reports/pom.xml" />
+        <option value="$PROJECT_DIR$/ms-repair-list/pom.xml" />
       </list>
     </option>
   </component>
