@@ -23,7 +23,7 @@ public class RepairService {
 
     private final RepairRepository repairRepository;
     private final RepairDetailsRepository repairDetailsRepository;
-    private VehicleFeignClient vehicleFeignClient;
+    private final VehicleFeignClient vehicleFeignClient;
 
     // Repair CRUD operations
     public List<RepairEntity> findAllRepairs() {
@@ -68,7 +68,7 @@ public class RepairService {
             throw new IllegalArgumentException("Vehicle not found");
         }
 
-        List<RepairEntity> repairs = repairRepository.findAllByVehiculoId(vehicleId);
+        List<RepairEntity> repairs = repairRepository.findAllByVehicleId(vehicleId);
 
         return repairs.stream()
                 .flatMap(repair -> {
@@ -77,11 +77,11 @@ public class RepairService {
                         RepairDetailDTO dto = new RepairDetailDTO();
                         dto.setId(detail.getId());
                         dto.setRepairId(detail.getRepairId());
-                        dto.setTipoReparacion(detail.getRepairType());
-                        dto.setFechaReparacion(detail.getRepairDate());
-                        dto.setHoraReparacion(detail.getRepairTime());
-                        dto.setMontoReparacion(detail.getRepairAmount());
-                        dto.setPatenteVehiculo(vehicle.getPatente());
+                        dto.setRepairType(detail.getRepairType());
+                        dto.setRepairDate(detail.getRepairDate());
+                        dto.setRepairTime(detail.getRepairTime());
+                        dto.setRepairAmount(detail.getRepairAmount());
+                        dto.setLicensePlate(vehicle.getLicensePlate());
                         return dto;
                     });
                 })

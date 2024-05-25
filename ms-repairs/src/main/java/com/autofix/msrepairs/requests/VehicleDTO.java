@@ -9,11 +9,11 @@ import lombok.*;
 @Setter
 public class VehicleDTO {
     private Long id;
-    private String patente;
-    private String marca;
-    private String modelo;
-    private String tipo;
-    private int anioFabricacion;
-    private String tipoMotor;
-    private int numeroAsientos;
+    private String licensePlate;
+    private String brand;
+    private String model;
+    private String type;
+    private int yearOfManufacture;
+    private String engineType;
+    private int numberOfSeats;
 }

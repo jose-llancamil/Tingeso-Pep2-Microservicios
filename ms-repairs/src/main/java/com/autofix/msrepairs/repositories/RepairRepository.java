@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface RepairRepository extends JpaRepository<RepairEntity, Long> {
-    List<RepairEntity> findAllByVehiculoId(Long vehiculoId);
+    List<RepairEntity> findAllByVehicleId(Long vehicleId);
 }
 

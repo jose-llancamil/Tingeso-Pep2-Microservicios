@@ -50,8 +50,8 @@ public class RepairEntity {
     private LocalTime exitTime;
 
     @Column(name = "fecha_retiro")
-    private LocalDateTime retrievalDate;
+    private LocalDateTime pickUpDate;
 
     @Column(name = "hora_retiro")
-    private LocalTime retrievalTime;
+    private LocalTime pickUpTime;
 }

@@ -14,9 +14,9 @@ import java.time.LocalTime;
 public class RepairDetailDTO {
     private Long id;
     private Long repairId;
-    private String tipoReparacion;
-    private LocalDate fechaReparacion;
-    private LocalTime horaReparacion;
-    private BigDecimal montoReparacion;
-    private String patenteVehiculo;
+    private String repairType;
+    private LocalDate repairDate;
+    private LocalTime repairTime;
+    private BigDecimal repairAmount;
+    private String licensePlate;
 }

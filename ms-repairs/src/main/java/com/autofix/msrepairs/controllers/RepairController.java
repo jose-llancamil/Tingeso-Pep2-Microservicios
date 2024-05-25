@@ -65,12 +65,6 @@ public class RepairController {
         return repairService.findAllRepairDetails();
     }
 
-    @GetMapping("/details/{id}")
-    public ResponseEntity<RepairDetailsEntity> getRepairDetailsById(@PathVariable Long id) {
-        return repairService.findRepairDetailsById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
 
     @PostMapping("/details")
     public ResponseEntity<RepairDetailsEntity> createRepairDetails(@RequestBody @Valid RepairDetailsEntity repairDetails) {
@@ -81,16 +75,6 @@ public class RepairController {
     @GetMapping("/details/{vehicleId}")
     public List<RepairDetailDTO> getRepairDetailsByVehicleId(@PathVariable Long vehicleId) {
         return repairService.getRepairDetailsByVehicleId(vehicleId);
-    }
-
-    @PutMapping("/details/{id}")
-    public ResponseEntity<RepairDetailsEntity> updateRepairDetails(@PathVariable Long id, @RequestBody @Valid RepairDetailsEntity repairDetails) {
-        try {
-            RepairDetailsEntity updatedRepairDetails = repairService.updateRepairDetails(id, repairDetails);
-            return ResponseEntity.ok(updatedRepairDetails);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.notFound().build();
-        }
     }
 
     @DeleteMapping("/details/{id}")
