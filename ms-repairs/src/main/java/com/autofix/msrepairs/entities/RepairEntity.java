@@ -3,7 +3,7 @@ package com.autofix.msrepairs.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
@@ -23,35 +23,35 @@ public class RepairEntity {
     private Long vehicleId;
 
     @Column(name = "fecha_ingreso", nullable = false)
-    private LocalDateTime entryDate;
+    private LocalDate entryDate;
 
     @Column(name = "hora_ingreso", nullable = false)
     private LocalTime entryTime;
 
-    @Column(name = "monto_total_reparaciones", nullable = false)
+    @Column(name = "monto_total_reparaciones")
     private Double totalRepairAmount;
 
-    @Column(name = "monto_recargos", nullable = false)
+    @Column(name = "monto_recargos")
     private Double surchargeAmount;
 
-    @Column(name = "monto_descuentos", nullable = false)
+    @Column(name = "monto_descuentos")
     private Double discountAmount;
 
-    @Column(name = "monto_iva", nullable = false)
+    @Column(name = "monto_iva")
     private Double taxAmount;
 
-    @Column(name = "costo_total", nullable = false)
+    @Column(name = "costo_total")
     private Double totalCost;
 
-    @Column(name = "fecha_salida")
-    private LocalDateTime exitDate;
+    @Column(name = "fecha_salida", nullable = false)
+    private LocalDate exitDate;
 
-    @Column(name = "hora_salida")
+    @Column(name = "hora_salida", nullable = false)
     private LocalTime exitTime;
 
-    @Column(name = "fecha_retiro")
-    private LocalDateTime pickUpDate;
+    @Column(name = "fecha_retiro", nullable = false)
+    private LocalDate pickUpDate;
 
-    @Column(name = "hora_retiro")
+    @Column(name = "hora_retiro", nullable = false)
     private LocalTime pickUpTime;
 }

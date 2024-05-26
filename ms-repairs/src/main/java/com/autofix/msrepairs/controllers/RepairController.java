@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/repairs")
@@ -40,7 +41,7 @@ public class RepairController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RepairEntity> updateRepair(@PathVariable Long id, @RequestBody @Valid RepairEntity repair) {
+    public ResponseEntity<RepairEntity> updateRepair(@PathVariable Long id, @RequestBody RepairEntity repair) {
         try {
             RepairEntity updatedRepair = repairService.updateRepair(id, repair);
             return ResponseEntity.ok(updatedRepair);
@@ -65,11 +66,11 @@ public class RepairController {
         return repairService.findAllRepairDetails();
     }
 
-
-    @PostMapping("/details")
-    public ResponseEntity<RepairDetailsEntity> createRepairDetails(@RequestBody @Valid RepairDetailsEntity repairDetails) {
-        RepairDetailsEntity createdRepairDetails = repairService.saveRepairDetails(repairDetails);
-        return ResponseEntity.ok(createdRepairDetails);
+    @GetMapping("/details/info/{id}")
+    public ResponseEntity<RepairDetailsEntity> getRepairDetailsById(@PathVariable Long id) {
+        return repairService.findRepairDetailsById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/details/{vehicleId}")
@@ -77,10 +78,38 @@ public class RepairController {
         return repairService.getRepairDetailsByVehicleId(vehicleId);
     }
 
-    @DeleteMapping("/details/{id}")
-    public ResponseEntity<Void> deleteRepairDetails(@PathVariable Long id) {
+    @PostMapping("/details")
+    public ResponseEntity<List<RepairDetailsEntity>> createRepairDetails(@RequestBody @Valid List<RepairDetailsEntity> repairDetailsList) {
+        List<RepairDetailsEntity> createdRepairDetailsList = repairDetailsList.stream()
+                .map(repairService::saveRepairDetails)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(createdRepairDetailsList);
+    }
+
+    @PutMapping("/details/{id}")
+    public ResponseEntity<RepairDetailsEntity> updateRepairDetails(@PathVariable Long id, @RequestBody RepairDetailsEntity repairDetails) {
         try {
-            repairService.deleteRepairDetailsById(id);
+            RepairDetailsEntity updatedRepairDetails = repairService.updateRepairDetails(id, repairDetails);
+            return ResponseEntity.ok(updatedRepairDetails);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/details/{id}")
+    public ResponseEntity<Void> deleteRepairDetailById(@PathVariable Long id) {
+        try {
+            repairService.deleteRepairDetailById(id);
+            return ResponseEntity.noContent().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/details/vehicle/{vehicleId}")
+    public ResponseEntity<Void> deleteRepairDetailsByVehicleId(@PathVariable Long vehicleId) {
+        try {
+            repairService.deleteRepairDetailsByVehicleId(vehicleId);
             return ResponseEntity.noContent().build();
         } catch (IllegalArgumentException e) {
             return ResponseEntity.notFound().build();

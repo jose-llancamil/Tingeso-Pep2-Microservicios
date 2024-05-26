@@ -32,6 +32,6 @@ public class RepairDetailsEntity {
     @Column(name = "hora_reparacion", nullable = false)
     private LocalTime repairTime;
 
-    @Column(name = "monto_reparacion", nullable = false)
+    @Column(name = "monto_reparacion")
     private BigDecimal repairAmount;
 }

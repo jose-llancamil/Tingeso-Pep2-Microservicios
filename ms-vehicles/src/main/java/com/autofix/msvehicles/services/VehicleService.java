@@ -28,4 +28,12 @@ public class VehicleService {
     public void deleteVehicle(Long id) {
         vehicleRepository.deleteById(id);
     }
+
+    public VehicleEntity updateVehicle(Long id, VehicleEntity vehicle) {
+        if (!vehicleRepository.existsById(id)) {
+            throw new IllegalArgumentException("Vehicle not found with id " + id);
+        }
+        vehicle.setId(id);
+        return vehicleRepository.save(vehicle);
+    }
 }

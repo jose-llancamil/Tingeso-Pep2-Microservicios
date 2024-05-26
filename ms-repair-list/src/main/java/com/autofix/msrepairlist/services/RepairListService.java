@@ -5,6 +5,7 @@ import com.autofix.msrepairlist.repositories.RepairListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,5 +43,29 @@ public class RepairListService {
         } else {
             return false;
         }
+    }
+
+    public Optional<RepairListEntity> getRepairByType(String repairType) {
+        return repairListRepository.findByRepairType(repairType);
+    }
+
+    public BigDecimal getRepairPrice(String repairType, String engineType) {
+        Optional<RepairListEntity> repairOpt = repairListRepository.findByRepairType(repairType);
+        if (repairOpt.isPresent()) {
+            RepairListEntity repair = repairOpt.get();
+            switch (engineType.toLowerCase()) {
+                case "gasolina":
+                    return BigDecimal.valueOf(repair.getGasolinePrice());
+                case "diesel":
+                    return BigDecimal.valueOf(repair.getDieselPrice());
+                case "hibrido":
+                    return BigDecimal.valueOf(repair.getHybridPrice());
+                case "electrico":
+                    return BigDecimal.valueOf(repair.getElectricPrice());
+                default:
+                    return null;
+            }
+        }
+        return null;
     }
 }
