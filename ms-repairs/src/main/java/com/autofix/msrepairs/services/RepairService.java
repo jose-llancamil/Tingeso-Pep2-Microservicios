@@ -1,14 +1,19 @@
 package com.autofix.msrepairs.services;
 
+import com.autofix.msrepairs.clients.VehicleFeignClient;
 import com.autofix.msrepairs.entities.RepairEntity;
 import com.autofix.msrepairs.repositories.RepairRepository;
+import com.autofix.msrepairs.requests.VehicleDTO;
+import com.autofix.msrepairs.requests.VehicleRepairHistoryDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Validated
@@ -16,6 +21,7 @@ import java.util.Optional;
 public class RepairService {
 
     private final RepairRepository repairRepository;
+    private final VehicleFeignClient vehicleFeignClient;
 
     /**
      * Retrieves all repairs.
@@ -66,5 +72,38 @@ public class RepairService {
             throw new IllegalArgumentException("Repair not found with id " + id);
         }
         repairRepository.deleteById(id);
+    }
+
+    /**
+     * Retrieves the repair history for all vehicles.
+     * @return a list of VehicleRepairHistoryDTO containing the repair history for each vehicle.
+     */
+    public List<VehicleRepairHistoryDTO> getVehicleRepairHistory() {
+        List<RepairEntity> repairs = repairRepository.findAll();
+
+        return repairs.stream()
+                .map(repair -> {
+                    VehicleDTO vehicle = vehicleFeignClient.getVehicleById(repair.getVehicleId());
+                    VehicleRepairHistoryDTO dto = new VehicleRepairHistoryDTO();
+                    dto.setLicensePlate(vehicle.getLicensePlate());
+                    dto.setBrand(vehicle.getBrand());
+                    dto.setModel(vehicle.getModel());
+                    dto.setType(vehicle.getType());
+                    dto.setYearOfManufacture(vehicle.getYearOfManufacture());
+                    dto.setEngineType(vehicle.getEngineType());
+                    dto.setEntryDate(repair.getEntryDate());
+                    dto.setEntryTime(repair.getEntryTime());
+                    dto.setTotalRepairAmount(repair.getTotalRepairAmount());
+                    dto.setSurchargeAmount(repair.getSurchargeAmount());
+                    dto.setDiscountAmount(repair.getDiscountAmount());
+                    dto.setTaxAmount(repair.getTaxAmount());
+                    dto.setTotalCost(repair.getTotalCost());
+                    dto.setExitDate(repair.getExitDate());
+                    dto.setExitTime(repair.getExitTime());
+                    dto.setPickupDate(repair.getPickUpDate());
+                    dto.setPickupTime(repair.getPickUpTime());
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 }
