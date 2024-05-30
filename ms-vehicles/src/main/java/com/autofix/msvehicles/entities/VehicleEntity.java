@@ -35,4 +35,7 @@ public class VehicleEntity {
 
     @Column(name = "numero_asientos", nullable = false)
     private int numberOfSeats;
+
+    @Column(name = "kilometraje", nullable = false)
+    private  int mileage;
 }

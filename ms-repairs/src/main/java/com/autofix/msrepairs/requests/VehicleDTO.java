@@ -16,4 +16,5 @@ public class VehicleDTO {
     private int yearOfManufacture;
     private String engineType;
     private int numberOfSeats;
+    private int mileage;
 }
