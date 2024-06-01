@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/vehicles")
-@CrossOrigin("*")
 public class VehicleController {
 
     @Autowired
