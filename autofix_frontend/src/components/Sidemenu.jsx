@@ -12,6 +12,8 @@ import BuildIcon from "@mui/icons-material/Build";
 import ReportIcon from "@mui/icons-material/Report";
 import LoyaltyIcon from "@mui/icons-material/Loyalty";
 import SummarizeIcon from '@mui/icons-material/Summarize';
+import PaidIcon from '@mui/icons-material/Paid';
+import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 import { useNavigate } from "react-router-dom";
 
 export default function Sidemenu({ open, toggleDrawer }) {
@@ -46,6 +48,13 @@ export default function Sidemenu({ open, toggleDrawer }) {
           <ListItemText primary="Vehículos" />
         </ListItemButton>
 
+        <ListItemButton onClick={() => handleNavigation("/repair-list")}>
+          <ListItemIcon>
+            <PaidIcon />
+          </ListItemIcon>
+          <ListItemText primary="Precios Reparaciones" />
+        </ListItemButton>
+
         <ListItemButton onClick={() => handleNavigation("/repairs")}>
           <ListItemIcon>
             <BuildIcon />
@@ -53,43 +62,29 @@ export default function Sidemenu({ open, toggleDrawer }) {
           <ListItemText primary="Reparaciones" />
         </ListItemButton>
 
-        <ListItemButton onClick={() => handleNavigation("/bonuses")}>
+        <ListItemButton onClick={() => handleNavigation("/repairs/history")}>
           <ListItemIcon>
-            <LoyaltyIcon />
+            <AccessTimeFilledIcon />
           </ListItemIcon>
-          <ListItemText primary="Bonos" />
+          <ListItemText primary="Historial Reparaciones" />
         </ListItemButton>
       </List>
 
       <Divider />
 
       <List>
-        <ListItemButton onClick={() => handleNavigation("/reports/repair-costs")}>
+        <ListItemButton onClick={() => handleNavigation("/reports/report1")}>
           <ListItemIcon>
             <SummarizeIcon />
           </ListItemIcon>
-          <ListItemText primary="Reporte de costos de reparación" />
+          <ListItemText primary="Reporte 1" />
         </ListItemButton>
 
-        <ListItemButton onClick={() => handleNavigation("reports/repair-type-summary")}>
+        <ListItemButton onClick={() => handleNavigation("reports/report2")}>
           <ListItemIcon>
             <SummarizeIcon />
           </ListItemIcon>
-          <ListItemText primary="Reporte de tipos de reparación" />
-        </ListItemButton>
-
-        <ListItemButton onClick={() => handleNavigation("reports/average-repair-time")}>
-          <ListItemIcon>
-            <SummarizeIcon />
-          </ListItemIcon>
-          <ListItemText primary="Reporte del tiempo promedio de reparación" />
-        </ListItemButton>
-
-        <ListItemButton onClick={() => handleNavigation("reports/repair-types-engine-summary")}>
-          <ListItemIcon>
-            <SummarizeIcon />
-          </ListItemIcon>
-          <ListItemText primary="Reporte de reparaciones por tipo de motor" />
+          <ListItemText primary="Reporte 2" />
         </ListItemButton>
       </List>
     </Box>

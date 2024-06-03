@@ -14,8 +14,8 @@ const AddEditVehicle = () => {
   const [type, setType] = useState("");
   const [yearOfManufacture, setyearOfManufacture] = useState("");
   const [engineType, setEngineType] = useState("");
-  const [numberOfSeats, setnumberOfSeats] = useState(""); 
-  const [mileage, setMileage] = useState("");  
+  const [numberOfSeats, setnumberOfSeats] = useState("");
+  const [mileage, setMileage] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -30,8 +30,8 @@ const AddEditVehicle = () => {
           setType(vehicle.type);
           setyearOfManufacture(vehicle.yearOfManufacture);
           setEngineType(vehicle.engineType);
-          setMileage(vehicle.mileage); 
           setnumberOfSeats(vehicle.numberOfSeats);
+          setMileage(vehicle.mileage);
         })
         .catch(error => {
           console.log("Error fetching vehicle details.", error);
@@ -48,9 +48,8 @@ const AddEditVehicle = () => {
       type,
       yearOfManufacture,
       engineType,
-      mileage,
       numberOfSeats,
-      id
+      mileage
     };
 
     if (id) {
@@ -95,7 +94,7 @@ const AddEditVehicle = () => {
         <TextField label="Modelo" value={model} onChange={e => setModel(e.target.value)} sx={{ mb: 1 }} />
       </FormControl>
       <FormControl fullWidth>
-        <TextField label="Tipo" value={type} onChange={e => setType(e.target.value)} sx={{ mb: 1 }}  />
+        <TextField label="Tipo" value={type} onChange={e => setType(e.target.value)} sx={{ mb: 1 }} />
       </FormControl>
       <FormControl fullWidth>
         <TextField label="Año" value={yearOfManufacture} onChange={e => setyearOfManufacture(e.target.value)} sx={{ mb: 1 }} />
@@ -104,10 +103,10 @@ const AddEditVehicle = () => {
         <TextField label="Tipo de Motor" value={engineType} onChange={e => setEngineType(e.target.value)} sx={{ mb: 1 }} />
       </FormControl>
       <FormControl fullWidth>
-        <TextField label="Kilometraje" type="number" value={mileage} onChange={e => setMileage(e.target.value)} sx={{ mb: 1 }} />
+        <TextField label="Asientos" type="number" value={numberOfSeats} onChange={e => setnumberOfSeats(e.target.value)} sx={{ mb: 1 }} />
       </FormControl>
       <FormControl fullWidth>
-        <TextField label="Asientos" type="number" value={numberOfSeats} onChange={e => setnumberOfSeats(e.target.value)} sx={{ mb: 1 }} />
+        <TextField label="Kilometraje" type="number" value={mileage} onChange={e => setMileage(e.target.value)} sx={{ mb: 1 }} />
       </FormControl>
       <Button variant="contained" color="primary" type="submit" startIcon={<SaveIcon />}>
         Guardar

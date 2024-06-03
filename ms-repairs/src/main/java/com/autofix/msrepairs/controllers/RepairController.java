@@ -1,11 +1,11 @@
 package com.autofix.msrepairs.controllers;
 
-import com.autofix.msrepairs.entities.RepairEntity;
 import com.autofix.msrepairs.entities.RepairDetailsEntity;
+import com.autofix.msrepairs.entities.RepairEntity;
 import com.autofix.msrepairs.requests.RepairDetailDTO;
 import com.autofix.msrepairs.requests.VehicleRepairHistoryDTO;
-import com.autofix.msrepairs.services.RepairService;
 import com.autofix.msrepairs.services.RepairDetailsService;
+import com.autofix.msrepairs.services.RepairService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

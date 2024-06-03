@@ -4,42 +4,34 @@ import Navbar from "./components/Navbar";
 import Home from './components/Home';
 import VehicleList from './components/VehicleList';
 import AddEditVehicle from './components/AddEditVehicle';
+import RepairPricesList from './components/RepairPricesList';
+import AddEditRepairPricesList from './components/AddEditRepairPricesList';
 import RepairList from './components/RepairList';
 import AddEditRepair from './components/AddEditRepair';
-import BonusList from './components/BonusList';
-import AddEditBonus from './components/AddEditBonus';
-import RepairCostsReport from './components/RepairCostsReport'; // R1
-import RepairTypeSummaryReport from './components/RepairTypeSummaryReport'; // R2
-import AverageRepairTimeReport from './components/AverageRepairTimeReport'; // R3
-import RepairTypesEngineReport from './components/RepairTypesEngineReport'; // R4
+import RepairDetails from './components/RepairDetails';
+import AddEditRepairDetails from './components/AddEditRepairDetails';
 import NotFound from './components/NotFound';
-import Footer from './components/Footer';
 
 function App() {
   return (
     <Router>
       <div className="container">
-        <Navbar /> 
+        <Navbar />
         
-        <Routes> 
+        <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/vehicles" element={<VehicleList />} />
           <Route path="/vehicles/create" element={<AddEditVehicle />} />
           <Route path="/vehicles/edit/:id" element={<AddEditVehicle />} />
-
+          <Route path="/repair-list" element={<RepairPricesList />} />
+          <Route path="/repair-list/create" element={<AddEditRepairPricesList />} />
+          <Route path="/repair-list/edit/:id" element={<AddEditRepairPricesList />} />
           <Route path="/repairs" element={<RepairList />} />
           <Route path="/repairs/create" element={<AddEditRepair />} />
           <Route path="/repairs/edit/:id" element={<AddEditRepair />} />
-
-          <Route path="/bonuses" element={<BonusList />} />
-          <Route path="/bonuses/create" element={<AddEditBonus />} />
-          <Route path="/bonuses/edit/:id" element={<AddEditBonus />} />
-
-          <Route path="/reports/repair-costs" element={<RepairCostsReport />} />
-          <Route path="/reports/repair-type-summary" element={<RepairTypeSummaryReport />} />
-          <Route path="/reports/average-repair-time" element={<AverageRepairTimeReport />} />
-          <Route path="/reports/repair-types-engine-summary" element={<RepairTypesEngineReport />} />
-
+          <Route path="/repairs/details/vehicle/:vehicleId" element={<RepairDetails />} />
+          <Route path="/repair-details/create/:vehicleId" element={<AddEditRepairDetails />} />
+          <Route path="/repair-details/edit/:id" element={<AddEditRepairDetails />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

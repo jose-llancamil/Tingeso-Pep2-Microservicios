@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,13 +52,9 @@ public class RepairListController {
         }
     }
 
-    @GetMapping("/price")
-    public ResponseEntity<BigDecimal> getRepairPrice(@RequestParam String repairType, @RequestParam String engineType) {
-        BigDecimal price = repairListService.getRepairPrice(repairType, engineType);
-        if (price != null) {
-            return ResponseEntity.ok(price);
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
+    @GetMapping("/types")
+    public ResponseEntity<List<String>> getAllRepairTypes() {
+        List<String> repairTypes = repairListService.getAllRepairTypes();
+        return ResponseEntity.ok(repairTypes);
     }
 }

@@ -2,6 +2,7 @@ package com.autofix.msrepairs.services;
 
 import com.autofix.msrepairs.clients.RepairListFeignClient;
 import com.autofix.msrepairs.clients.VehicleFeignClient;
+import com.autofix.msrepairs.requests.PriceListDTO;
 import com.autofix.msrepairs.entities.RepairDetailsEntity;
 import com.autofix.msrepairs.entities.RepairEntity;
 import com.autofix.msrepairs.repositories.RepairDetailsRepository;
@@ -20,7 +21,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-
 @Service
 @RequiredArgsConstructor
 public class RepairDetailsService {
@@ -31,7 +31,6 @@ public class RepairDetailsService {
     private final RepairListFeignClient repairListFeignClient;
     private final DiscountService discountService;
     private final SurchargeService surchargeService;
-
 
     /**
      * Retrieves all repair details.
@@ -92,9 +91,13 @@ public class RepairDetailsService {
             Long vehicleId = repairOpt.get().getVehicleId();
             VehicleDTO vehicle = vehicleFeignClient.getVehicleById(vehicleId);
 
-            BigDecimal repairPrice = repairListFeignClient.getRepairPrice(
-                    repairDetailsEntity.getRepairType(), vehicle.getEngineType()
-            );
+            List<PriceListDTO> priceList = repairListFeignClient.getAllRepairs();
+            PriceListDTO matchingPrice = priceList.stream()
+                    .filter(price -> price.getRepairType().equals(repairDetailsEntity.getRepairType()))
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException("Repair type not found in price list"));
+
+            BigDecimal repairPrice = getRepairPriceByEngineType(matchingPrice, vehicle.getEngineType());
             repairDetailsEntity.setRepairAmount(repairPrice);
 
             RepairDetailsEntity savedDetail = repairDetailsRepository.save(repairDetailsEntity);
@@ -104,6 +107,21 @@ public class RepairDetailsService {
             return savedDetail;
         } else {
             throw new RuntimeException("Repair not found");
+        }
+    }
+
+    private BigDecimal getRepairPriceByEngineType(PriceListDTO priceList, String engineType) {
+        switch (engineType.toLowerCase()) {
+            case "gasolina":
+                return BigDecimal.valueOf(priceList.getGasolinePrice());
+            case "diésel":
+                return BigDecimal.valueOf(priceList.getDieselPrice());
+            case "híbrido":
+                return BigDecimal.valueOf(priceList.getHybridPrice());
+            case "eléctrico":
+                return BigDecimal.valueOf(priceList.getElectricPrice());
+            default:
+                throw new IllegalArgumentException("Invalid engine type: " + engineType);
         }
     }
 
