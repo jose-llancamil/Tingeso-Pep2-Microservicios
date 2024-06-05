@@ -18,7 +18,7 @@ import dayjs from "dayjs";
 const AddEditRepairDetails = () => {
   const [repairId, setRepairId] = useState("");
   const [repairType, setRepairType] = useState("");
-  const [repairDate, setRepairDate] = useState(null); 
+  const [repairDate, setRepairDate] = useState(null);
   const [repairTime, setRepairTime] = useState(null);
   const [repairAmount, setRepairAmount] = useState(0);
   const [repairTypes, setRepairTypes] = useState([]);
@@ -34,8 +34,8 @@ const AddEditRepairDetails = () => {
           const detail = response.data;
           setRepairId(detail.repairId || "");
           setRepairType(detail.repairType || "");
-          setRepairDate(detail.repairDate ? dayjs(detail.repairDate) : null); 
-          setRepairTime(detail.repairTime ? dayjs(detail.repairTime, "HH:mm:ss") : null); 
+          setRepairDate(detail.repairDate ? dayjs(detail.repairDate) : null);
+          setRepairTime(detail.repairTime ? dayjs(detail.repairTime, "HH:mm:ss") : null);
         })
         .catch(error => {
           console.log("Error fetching repair detail.", error);
@@ -67,10 +67,9 @@ const AddEditRepairDetails = () => {
     const formattedRepairDate = repairDate ? repairDate.format("YYYY-MM-DD") : null;
     const formattedRepairTime = repairTime ? repairTime.format("HH:mm:ss") : null;
 
-    console.log("repairType:", repairType); // Agrega esto
-    console.log("engineType:", engineType); // Agrega esto
+    console.log("repairType:", repairType);
+    console.log("engineType:", engineType);
 
-    // Obtener el precio de la reparación antes de guardar
     repairPricesListService.getRepairPrice(repairType, engineType)
       .then(response => {
         const price = response.data;
@@ -82,7 +81,9 @@ const AddEditRepairDetails = () => {
           repairAmount: price
         };
 
-        const action = isEdit ? repairService.updateRepairDetails(id, repairDetail) : repairService.createRepairDetails(repairDetail);
+        const action = isEdit ?
+          repairService.updateRepairDetails(id, repairDetail) :
+          repairService.createRepairDetails([repairDetail]);  // Enviar como array
         action
           .then(response => {
             console.log(`${isEdit ? "Updated" : "Added"} repair detail successfully.`, response.data);
@@ -116,7 +117,7 @@ const AddEditRepairDetails = () => {
             type="number"
             value={repairId}
             onChange={e => setRepairId(e.target.value)}
-            sx={{ mb: 1 }} 
+            sx={{ mb: 1 }}
           />
         </FormControl>
         <FormControl fullWidth sx={{ mb: 2 }}>
@@ -126,7 +127,7 @@ const AddEditRepairDetails = () => {
             value={repairType}
             onChange={e => setRepairType(e.target.value)}
             label="Tipo de Reparación"
-            sx={{ mb: 1 }} 
+            sx={{ mb: 1 }}
           >
             {repairTypes.map((type) => (
               <MenuItem key={type} value={type}>
@@ -152,7 +153,7 @@ const AddEditRepairDetails = () => {
             label="Monto de Reparación"
             type="number"
             value={repairAmount}
-            sx={{ mb: 2 }} 
+            sx={{ mb: 2 }}
             InputProps={{ readOnly: true }}
           />
         </FormControl>

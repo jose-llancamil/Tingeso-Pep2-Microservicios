@@ -10,6 +10,9 @@ import RepairList from './components/RepairList';
 import AddEditRepair from './components/AddEditRepair';
 import RepairDetails from './components/RepairDetails';
 import AddEditRepairDetails from './components/AddEditRepairDetails';
+import RepairHistory from './components/RepairHistory';
+import RepairTypeReport from './components/RepairTypeReport';
+import MonthlyRepairComparisonReport from './components/MonthlyRepairComparisonReport'; // Importa el nuevo componente
 import NotFound from './components/NotFound';
 
 function App() {
@@ -32,6 +35,9 @@ function App() {
           <Route path="/repairs/details/vehicle/:vehicleId" element={<RepairDetails />} />
           <Route path="/repair-details/create/:vehicleId" element={<AddEditRepairDetails />} />
           <Route path="/repair-details/edit/:id" element={<AddEditRepairDetails />} />
+          <Route path="/repairs/history" element={<RepairHistory />} />
+          <Route path="/reports/repair-type" element={<RepairTypeReport />} />
+          <Route path="/reports/monthly-comparison" element={<MonthlyRepairComparisonReport />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>

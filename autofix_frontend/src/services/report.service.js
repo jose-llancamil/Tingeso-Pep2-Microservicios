@@ -1,24 +1,18 @@
 import httpClient from "../http-common";
 
-const generateRepairCostReport = () => {
-    return httpClient.get('/api/v1/reports/repair-costs');
-}
+const getRepairTypeReport = (month, year) => {
+    return httpClient.get('/reports/repair-type', {
+        params: { month, year }
+    });
+};
 
-const generateRepairTypeSummaryReport = () => {
-    return httpClient.get('/api/v1/reports/repair-type-summary');
-}
-
-const generateAverageRepairTimesReport = () => {
-    return httpClient.get('/api/v1/reports/average-repair-times');
-}
-
-const generateRepairTypesEngineSummary = () => {
-    return httpClient.get('/api/v1/reports/repair-types-engine-summary');
-}
+const getMonthlyRepairComparisonReport = (month, year) => {
+    return httpClient.get('/reports/monthly-comparison', {
+        params: { month, year }
+    });
+};
 
 export default {
-    generateRepairCostReport,
-    generateRepairTypeSummaryReport,
-    generateAverageRepairTimesReport,
-    generateRepairTypesEngineSummary
+    getRepairTypeReport,
+    getMonthlyRepairComparisonReport
 };
