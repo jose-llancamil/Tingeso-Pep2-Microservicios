@@ -71,5 +71,6 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<finalName>ms-vehicles</finalName>
 	</build>
 </project>

@@ -85,5 +85,6 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>ms-repairs</finalName>
     </build>
 </project>

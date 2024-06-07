@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import repairService from "../services/repair.service";
 import repairPricesListService from "../services/repairPricesList.service";
-import vehicleService from "../services/vehicle.service"; // Importa el servicio del vehículo
+import vehicleService from "../services/vehicle.service";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -22,7 +22,7 @@ const AddEditRepairDetails = () => {
   const [repairTime, setRepairTime] = useState(null);
   const [repairAmount, setRepairAmount] = useState(0);
   const [repairTypes, setRepairTypes] = useState([]);
-  const [engineType, setEngineType] = useState(""); // Estado para almacenar el tipo de motor
+  const [engineType, setEngineType] = useState("");
   const { id, vehicleId } = useParams();
   const navigate = useNavigate();
   const isEdit = Boolean(id);
@@ -83,7 +83,7 @@ const AddEditRepairDetails = () => {
 
         const action = isEdit ?
           repairService.updateRepairDetails(id, repairDetail) :
-          repairService.createRepairDetails([repairDetail]);  // Enviar como array
+          repairService.createRepairDetails([repairDetail]);
         action
           .then(response => {
             console.log(`${isEdit ? "Updated" : "Added"} repair detail successfully.`, response.data);
