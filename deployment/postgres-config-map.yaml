@@ -7,10 +7,10 @@ metadata:
 data:
   DB_HOST_REPAIRLIST: repair-list-db-service
   DB_PORT_REPAIRLIST: "5432"
-  DB_DBNAME_REPAIRLIST: msRepairListDB
+  DB_DBNAME_REPAIRLIST: repair-list-db
   DB_HOST_REPAIRS: repairs-db-service
   DB_PORT_REPAIRS: "5432"
-  DB_DBNAME_REPAIRS: msRepairsDB
+  DB_DBNAME_REPAIRS: repairs-db
   DB_HOST_VEHICLES: vehicles-db-service
   DB_PORT_VEHICLES: "5432"
-  DB_DBNAME_VEHICLES: msVehiclesDB
+  DB_DBNAME_VEHICLES: vehicles-db

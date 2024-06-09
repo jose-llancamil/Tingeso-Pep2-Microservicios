@@ -2,10 +2,10 @@
 \c postgres;
 
 -- Crear la nueva base de datos
-CREATE DATABASE "msRepairListDB";
+CREATE DATABASE "repair-list-db";
 
 -- Conectar a la nueva base de datos
-\c "msRepairListDB";
+\c "repair-list-db";
 --
 -- PostgreSQL database dump
 --
