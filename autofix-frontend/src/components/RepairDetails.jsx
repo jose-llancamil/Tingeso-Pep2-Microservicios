@@ -32,7 +32,7 @@ const RepairDetails = () => {
   }, [vehicleId]);
 
   const handleEdit = (id) => {
-    navigate(`/repair-details/edit/${id}`);
+    navigate(`/repair-details/edit/${id}/${vehicleId}`);
   };
 
   const handleDelete = (id) => {
@@ -61,6 +61,7 @@ const RepairDetails = () => {
           </Button>
         </Link>
       </Box>
+      <br />
       {repairDetails.length === 0 ? (
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="200px">
           <h3>Sin detalles de reparación</h3>
