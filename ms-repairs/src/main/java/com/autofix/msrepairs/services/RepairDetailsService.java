@@ -2,7 +2,6 @@ package com.autofix.msrepairs.services;
 
 import com.autofix.msrepairs.clients.RepairListFeignClient;
 import com.autofix.msrepairs.clients.VehicleFeignClient;
-import com.autofix.msrepairs.requests.PriceListDTO;
 import com.autofix.msrepairs.entities.RepairDetailsEntity;
 import com.autofix.msrepairs.entities.RepairEntity;
 import com.autofix.msrepairs.repositories.RepairDetailsRepository;
@@ -143,35 +142,31 @@ public class RepairDetailsService {
         List<RepairDetailsEntity> details = repairDetailsRepository.findAllByRepairId(repairId);
 
         double totalRepairAmount = details.stream().mapToDouble(d -> d.getRepairAmount().doubleValue()).sum();
-//        System.out.println("Total Repair Amount: " + totalRepairAmount);
-
         double surchargeAmount = details.isEmpty() ? 0 : calculateSurcharges(totalRepairAmount, repairId);
-//        System.out.println("Surcharge Amount: " + surchargeAmount);
+        double dayOfServiceDiscount = calculateDayOfServiceDiscount(totalRepairAmount, repairId);
+        double numberOfRepairsDiscount = calculateNumberOfRepairsDiscount(totalRepairAmount, repairId);
 
-        double discountAmount = calculateDiscounts(totalRepairAmount, repairId);
-//        System.out.println("Discount Amount: " + discountAmount);
+        // Obtener la reparación actual
+        RepairEntity repair = repairRepository.findById(repairId).orElseThrow();
+
+        // Validar si ya existe un descuento por cupón y mantener su valor
+        double couponDiscount = repair.getCouponDiscount() != null ? repair.getCouponDiscount() : 0.0;
+
+        // Sumar todos los descuentos incluyendo el de cupón
+        double discountAmount = dayOfServiceDiscount + numberOfRepairsDiscount + couponDiscount;
 
         double taxAmount = details.isEmpty() ? 0 : totalRepairAmount * 0.19;
-//        System.out.println("Tax Amount: " + taxAmount);
 
         double totalCost = calculateTotalCost(totalRepairAmount, surchargeAmount, discountAmount, taxAmount);
-//        System.out.println("Total Cost: " + totalCost);
-
-        RepairEntity repair = repairRepository.findById(repairId).orElseThrow();
 
         repair.setTotalRepairAmount(totalRepairAmount);
         repair.setSurchargeAmount(surchargeAmount);
         repair.setDiscountAmount(discountAmount);
+        repair.setCouponDiscount(couponDiscount);
         repair.setTaxAmount(taxAmount);
         repair.setTotalCost(totalCost);
 
         repairRepository.save(repair);
-//        Additional log to verify the saved values
-//        System.out.println("Saved Repair - Total Repair Amount: " + repair.getTotalRepairAmount());
-//        System.out.println("Saved Repair - Surcharge Amount: " + repair.getSurchargeAmount());
-//        System.out.println("Saved Repair - Discount Amount: " + repair.getDiscountAmount());
-//        System.out.println("Saved Repair - Tax Amount: " + repair.getTaxAmount());
-//        System.out.println("Saved Repair - Total Cost: " + repair.getTotalCost());
     }
 
     private double calculateTotalCost(double totalRepairAmount, double surchargeAmount, double discountAmount, double taxAmount) {
@@ -187,19 +182,6 @@ public class RepairDetailsService {
         double latePickupSurcharge = surchargeService.calculateLatePickupSurcharge(repairId, totalRepairAmount);
 
         return mileageSurcharge + ageSurcharge + latePickupSurcharge;
-    }
-
-    private double calculateDiscounts(double totalRepairAmount, Long repairId) {
-        double couponDiscount = calculateCouponDiscount(repairId);
-        double dayOfServiceDiscount = calculateDayOfServiceDiscount(totalRepairAmount, repairId);
-        double numberOfRepairsDiscount = calculateNumberOfRepairsDiscount(totalRepairAmount, repairId);
-
-        return couponDiscount + dayOfServiceDiscount + numberOfRepairsDiscount;
-    }
-
-    private double calculateCouponDiscount(Long repairId) {
-        RepairEntity repair = repairRepository.findById(repairId).orElseThrow();
-        return repair.getCouponDiscount() != null ? repair.getCouponDiscount() : 0.0;
     }
 
     private double calculateDayOfServiceDiscount(double totalRepairAmount, Long repairId) {
