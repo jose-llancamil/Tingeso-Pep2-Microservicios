@@ -13,7 +13,7 @@ CREATE DATABASE "repair-list-db";
 -- Dumped from database version 12.19
 -- Dumped by pg_dump version 12.19
 
--- Started on 2024-06-08 18:23:32
+-- Started on 2024-07-06 03:19:11
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -31,7 +31,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 203 (class 1259 OID 105813)
+-- TOC entry 203 (class 1259 OID 138646)
 -- Name: repair_list; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -48,7 +48,7 @@ CREATE TABLE public.repair_list (
 ALTER TABLE public.repair_list OWNER TO postgres;
 
 --
--- TOC entry 202 (class 1259 OID 105811)
+-- TOC entry 202 (class 1259 OID 138644)
 -- Name: repair_list_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -72,7 +72,7 @@ ALTER SEQUENCE public.repair_list_id_seq OWNED BY public.repair_list.id;
 
 
 --
--- TOC entry 2687 (class 2604 OID 105816)
+-- TOC entry 2687 (class 2604 OID 138649)
 -- Name: repair_list id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -80,7 +80,7 @@ ALTER TABLE ONLY public.repair_list ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 2817 (class 0 OID 105813)
+-- TOC entry 2817 (class 0 OID 138646)
 -- Dependencies: 203
 -- Data for Name: repair_list; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -106,11 +106,11 @@ COPY public.repair_list (id, tipo_reparacion, precio_gasolina, precio_diesel, pr
 -- Name: repair_list_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.repair_list_id_seq', 13, true);
+SELECT pg_catalog.setval('public.repair_list_id_seq', 11, true);
 
 
 --
--- TOC entry 2689 (class 2606 OID 105818)
+-- TOC entry 2689 (class 2606 OID 138651)
 -- Name: repair_list repair_list_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -118,7 +118,7 @@ ALTER TABLE ONLY public.repair_list
     ADD CONSTRAINT repair_list_pkey PRIMARY KEY (id);
 
 
--- Completed on 2024-06-08 18:23:33
+-- Completed on 2024-07-06 03:19:12
 
 --
 -- PostgreSQL database dump complete

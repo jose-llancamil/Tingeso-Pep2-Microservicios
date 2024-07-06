@@ -13,7 +13,7 @@ CREATE DATABASE "vehicles-db";
 -- Dumped from database version 12.19
 -- Dumped by pg_dump version 12.19
 
--- Started on 2024-06-08 18:24:54
+-- Started on 2024-07-06 03:16:55
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -31,7 +31,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 203 (class 1259 OID 114002)
+-- TOC entry 203 (class 1259 OID 138635)
 -- Name: vehicles; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -51,7 +51,7 @@ CREATE TABLE public.vehicles (
 ALTER TABLE public.vehicles OWNER TO postgres;
 
 --
--- TOC entry 202 (class 1259 OID 114000)
+-- TOC entry 202 (class 1259 OID 138633)
 -- Name: vehicles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -75,7 +75,7 @@ ALTER SEQUENCE public.vehicles_id_seq OWNED BY public.vehicles.id;
 
 
 --
--- TOC entry 2687 (class 2604 OID 114005)
+-- TOC entry 2687 (class 2604 OID 138638)
 -- Name: vehicles id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -83,7 +83,7 @@ ALTER TABLE ONLY public.vehicles ALTER COLUMN id SET DEFAULT nextval('public.veh
 
 
 --
--- TOC entry 2819 (class 0 OID 114002)
+-- TOC entry 2819 (class 0 OID 138635)
 -- Dependencies: 203
 -- Data for Name: vehicles; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -94,9 +94,6 @@ COPY public.vehicles (id, patente, marca, modelo, tipo, anio_fabricacion, tipo_m
 3	IJKL03	Hyundai	Tucson	SUV	2021	Híbrido	5	8000
 4	MNOP04	Honda	Ridgeline	Pickup	2019	Eléctrico	5	30000
 5	QRST05	Chevrolet	Express	Furgoneta	2017	Gasolina	8	35000
-6	UVWXYZ	Mazda	CX-5	SUV	2020	Gasolina	5	45000
-8	VEHI01	Toyota	Hilux	Pickup	2020	Diésel	4	55500
-9	POIU12	Toyota	Tercel	SUV	1998	Gasolina	5	30000
 \.
 
 
@@ -106,11 +103,11 @@ COPY public.vehicles (id, patente, marca, modelo, tipo, anio_fabricacion, tipo_m
 -- Name: vehicles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.vehicles_id_seq', 9, true);
+SELECT pg_catalog.setval('public.vehicles_id_seq', 5, true);
 
 
 --
--- TOC entry 2689 (class 2606 OID 114009)
+-- TOC entry 2689 (class 2606 OID 138642)
 -- Name: vehicles vehicles_patente_key; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -119,7 +116,7 @@ ALTER TABLE ONLY public.vehicles
 
 
 --
--- TOC entry 2691 (class 2606 OID 114007)
+-- TOC entry 2691 (class 2606 OID 138640)
 -- Name: vehicles vehicles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -127,7 +124,7 @@ ALTER TABLE ONLY public.vehicles
     ADD CONSTRAINT vehicles_pkey PRIMARY KEY (id);
 
 
--- Completed on 2024-06-08 18:24:55
+-- Completed on 2024-07-06 03:16:56
 
 --
 -- PostgreSQL database dump complete
