@@ -13,7 +13,7 @@ CREATE DATABASE "vehicles-db";
 -- Dumped from database version 12.19
 -- Dumped by pg_dump version 12.19
 
--- Started on 2024-07-06 03:16:55
+-- Started on 2024-07-06 21:47:32
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -124,7 +124,7 @@ ALTER TABLE ONLY public.vehicles
     ADD CONSTRAINT vehicles_pkey PRIMARY KEY (id);
 
 
--- Completed on 2024-07-06 03:16:56
+-- Completed on 2024-07-06 21:47:33
 
 --
 -- PostgreSQL database dump complete

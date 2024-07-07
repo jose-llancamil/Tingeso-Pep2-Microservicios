@@ -13,7 +13,7 @@ CREATE DATABASE "repair-list-db";
 -- Dumped from database version 12.19
 -- Dumped by pg_dump version 12.19
 
--- Started on 2024-07-06 03:19:11
+-- Started on 2024-07-06 21:47:06
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -118,7 +118,7 @@ ALTER TABLE ONLY public.repair_list
     ADD CONSTRAINT repair_list_pkey PRIMARY KEY (id);
 
 
--- Completed on 2024-07-06 03:19:12
+-- Completed on 2024-07-06 21:47:06
 
 --
 -- PostgreSQL database dump complete
